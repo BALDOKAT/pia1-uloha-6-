@@ -1,26 +1,68 @@
 #include <iostream>
+#include <cmath> // Potřebujeme pro hodnotu pí
 
 class Kruh
 {
-   private:
+private:
+    float radius;  // Proměnná pro uložení poloměru
+public:
+    // KONSTRUKTORY
+    Kruh() : radius(0.0f) // Inicializuje poloměr na 0.0, aby nebyl v neurčitém stavu.
+    {
+    }
 
-      float radius;
-}
+    Kruh(float r) : radius(r) // Inicializuje poloměr na základě hodnoty předané při vytváření objektu.
+    {
+    }
+
+    // Metoda pro nastavení poloměru
+    void setRadius(float r)
+    {
+        radius = r;
+    }
+
+    // VÝPOČET
+    // Metoda pro výpočet obsahu kruhu: A = π * r^2
+    float spocitejPlochu() const
+    {
+        return M_PI * radius * radius; // Používáme konstantu M_PI z knihovny <cmath>
+    }
+
+    // Metoda pro výpočet obvodu kruhu: O = 2 * π * r
+    float spocitejObvod() const
+    {
+        return 2.0f * M_PI * radius;
+    }
+
+    // VÝSTUP
+    void vypisUdaje() const  // Výpis údajů o kruhu
+    {
+        std::cout << "Plocha kruhu (r=" << radius << "): " << spocitejPlochu() << std::endl;
+        std::cout << "Obvod kruhu (r=" << radius << "): " << spocitejObvod() << std::endl;
+    }
+};
+
+//HLAVNÍ FUNKCE
 
 int main()
 {
-   float prvniRadius = 2;
-   Kruh prvniKruh;
-   prvniKruh.setRadius( prvniRadius );
+    // Poloměr pro první kruh
+    float prvniRadius = 2.0f; // Doplněno .0f pro konzistenci s float
 
-   float druhyRaidus = 4;
-   Kruh druhyKruh( druhyRaidus );
-   std::cout << "Plocha kruhu:" << prvniKruh.spocitejPlochu() << std::endl;;
-   std::cout << "Obvod kruhu:" << prvniKruh.spocitejObvod() << std::endl;
+    Kruh prvniKruh; 
 
-   druhyKruh.vypisUdaje();
+    prvniKruh.setRadius(prvniRadius);
 
-   // BONUS: radius kruhu bude sablonovy parametr, a udela pole kruhu a pro kazdy kruh spocita vse
+    // Vytvoření objektu 'druhyKruh' a inicializace poloměru pomocí parametrického konstruktoru
+    float druhyRaidus = 4.0f;
+    Kruh druhyKruh(druhyRaidus);
 
-   return 0;
+    // Výpočet a výpis výsledků pro prvniKruh
+    std::cout << "Plocha kruhu (r=2): " << prvniKruh.spocitejPlochu() << std::endl;
+    std::cout << "Obvod kruhu (r=2): " << prvniKruh.spocitejObvod() << std::endl;
+
+    // Volání metody pro výpis údajů pro druhyKruh
+    druhyKruh.vypisUdaje();
+    
+    return 0;
 }
